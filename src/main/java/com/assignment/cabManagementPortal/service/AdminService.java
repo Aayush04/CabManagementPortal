@@ -27,7 +27,8 @@ public class AdminService {
         long noServiceTime = 0;
         for (CabHistory history : cabHistoryList ) {
 
-            long diff = Math.min( history.getEndTime(), endTime) - Math.max( history.getStartTime(), startTime);
+            long historyEndTime = history.getEndTime() > 0 ? history.getEndTime() : System.currentTimeMillis();
+            long diff = Math.min( historyEndTime, endTime) - Math.max( history.getStartTime(), startTime);
             diff = diff > 0 ? diff : 0;
 
             switch (history.getState()) {
@@ -35,7 +36,7 @@ public class AdminService {
                     noServiceTime += diff;
                     break;
                 case IDLE:
-                    noServiceTime += diff;
+                    idleTime += diff;
                     break;
                 case ON_TRIP:
                     onTripTime += diff;
@@ -94,7 +95,7 @@ public class AdminService {
             }
             timeVsCount.put(startTime, timeVsCount.get(startTime)+1);
 
-            maxCityCount = Math.max(maxTimeCount, timeVsCount.get(startTime));
+            maxTimeCount = Math.max(maxTimeCount, timeVsCount.get(startTime));
         }
 
         System.out.println("============ Demand Insight =============");
