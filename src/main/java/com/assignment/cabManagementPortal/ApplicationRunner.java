@@ -54,7 +54,7 @@ public class ApplicationRunner {
         t1.start();
         t2.start();
 
-        long endTime = System.currentTimeMillis();
+
         try {
             t1.join();
             t2.join();
@@ -62,7 +62,7 @@ public class ApplicationRunner {
             e.printStackTrace();
         }
 
-
+        long endTime = System.currentTimeMillis();
         adminService.getCabDemandData();
         adminService.getCabHistory(cab1.getId());
         adminService.getCabHistory(cab2.getId());
@@ -80,6 +80,7 @@ public class ApplicationRunner {
     }
 
     private void simulateBooking() {
+        sleep(1000);
         Booking b1 = customerService.book(1, "city-1", "city-2");
         sleep(1000);
         Booking b2 = customerService.book(2, "city-2", "city-3");
