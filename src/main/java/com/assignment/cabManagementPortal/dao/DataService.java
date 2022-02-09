@@ -27,10 +27,10 @@ public class DataService {
     private Map<Integer, Booking> bookingIdVsBooking = new HashMap<>();
     private Map<Integer, City> cityIdVsCity = new HashMap<>();
 
-    private AtomicInteger cityIdGenerator = new AtomicInteger(1);
-    private AtomicInteger cabHistoryIdGenerator = new AtomicInteger(1);
-    private AtomicInteger bookingIdGenerator = new AtomicInteger(1);
-    private AtomicInteger cabIdGenerator = new AtomicInteger(1);
+    private AtomicInteger cityIdGenerator = new AtomicInteger(0);
+    private AtomicInteger cabHistoryIdGenerator = new AtomicInteger(0);
+    private AtomicInteger bookingIdGenerator = new AtomicInteger(0);
+    private AtomicInteger cabIdGenerator = new AtomicInteger(0);
 
     public void addCity(City city) {
         logger.info("adding city to database with city: {}", city);

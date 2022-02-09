@@ -16,9 +16,9 @@ public class DriverService {
     @Resource
     private CabBookingService cabManager;
 
-    public Cab register(String location) {
-        logger.info("registering new cab for city: {}", location);
-        return cabManager.addNewCab(location);
+    public Cab register() {
+        logger.info("registering new cab ");
+        return cabManager.addNewCab();
     }
 
     public void changeLocation(Integer cabId, Integer cityId) {

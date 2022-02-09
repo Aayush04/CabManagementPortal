@@ -1,5 +1,6 @@
 package com.assignment.cabManagementPortal;
 
+import com.assignment.cabManagementPortal.service.AdminService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,8 +10,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.jms.activemq.ActiveMQAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
+import javax.annotation.Resource;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
@@ -22,8 +25,12 @@ import java.nio.charset.StandardCharsets;
 public class MainApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MainApplication.class, args);
-        readInputCsv();
+        ApplicationContext applicationContext = SpringApplication.run(MainApplication.class, args);
+
+        ApplicationRunner applicationRunner = applicationContext.getBean(ApplicationRunner.class);
+
+        applicationRunner.start();
+//        readInputCsv();
     }
 
     public static void readInputCsv() {

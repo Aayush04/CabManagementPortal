@@ -19,12 +19,12 @@ public class CabBookingService {
 
     private Map<String, Queue<Cab>> cityVsCabQueue = new HashMap<>();
 
-    public Cab addNewCab(String city) {
+    public Cab addNewCab() {
 
         Cab cab = Cab.builder()
 //                .id(cabId)
                 .state(CabState.NOT_IN_SERVICE)
-                .location(city)
+//                .location(city)
                 .build();
         dataService.addCab(cab);
 
@@ -119,7 +119,7 @@ public class CabBookingService {
             throw new RuntimeException("no previous history found for cab " + cab.getId());
         }
 
-        if(cabHistory.getState() != CabState.NOT_IN_SERVICE || cabHistory.getState() != CabState.ON_TRIP ) {
+        if(cabHistory.getState() == CabState.IDLE) {
             throw new RuntimeException("invalid new state " + CabState.IDLE + " for cab " + cab.getId());
         }
 
@@ -190,6 +190,9 @@ public class CabBookingService {
 
         Cab cab = getNextAvailableCab(booking.getSource());
         cab.setState(CabState.ON_TRIP);
+        booking.setCabId(cab.getId());
+        booking.setState(BookingState.ON_GOING);
+        dataService.updateBooking(booking);
         handleCabOnTrip(cab, booking.getId());
     }
 
@@ -210,7 +213,7 @@ public class CabBookingService {
 
         handleCabIdle(cab, booking.getDestination());
         booking.setEndTime(System.currentTimeMillis());
-
+        booking.setState(BookingState.COMPLETED);
         dataService.updateBooking(booking);
 
     }

@@ -117,7 +117,7 @@ public class AdminService {
         return demand;
     }
 
-    public void addCity(String name) {
+    public City addCity(String name) {
         logger.info("adding new city with name: {} ", name);
         City city = dataService.getCity(name);
         if(city != null) {
@@ -127,5 +127,7 @@ public class AdminService {
                 .name(name)
                 .build();
         dataService.addCity(newCity);
+
+        return newCity;
     }
 }
